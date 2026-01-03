@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>தமிழ் வேத ஜோதிடம் - Tamil Vedic Astrology</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;600;700&display=swap');
+        body { font-family: 'Noto Sans Tamil', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-shadow { box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-white mb-2">🔮 தமிழ் வேத ஜோதிடம்</h1>
+            <p class="text-white/80">AI-Powered Tamil Vedic Astrology Predictions</p>
+        </div>
+
+        <!-- Main Card -->
+        <div class="max-w-2xl mx-auto bg-white rounded-2xl card-shadow p-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">📅 பிறந்த விவரங்கள்</h2>
+            
+            <form id="astroForm" class="space-y-6">
+                <!-- Name -->
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">
+                        👤 பெயர் (Name)
+                    </label>
+                    <input type="text" id="name" name="name" required
+                        placeholder="உங்கள் பெயர்"
+                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:outline-none transition">
+                </div>
+
+                <!-- Gender -->
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">
+                        🚻 பாலினம் (Gender)
+                    </label>
+                    <select id="gender" name="gender" required
+                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:outline-none transition">
+                        <option value="ஆண்">👨 ஆண் (Male)</option>
+                        <option value="பெண்">👩 பெண் (Female)</option>
+                    </select>
+                </div>
+
+                <!-- Birth Date -->
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">
+                        🗓️ பிறந்த தேதி (Birth Date)
+                    </label>
+                    <input type="date" id="birth_date" name="birth_date" required
+                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:outline-none transition">
+                </div>
+
+                <!-- Birth Time with AM/PM -->
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">
+                        ⏰ பிறந்த நேரம் (Birth Time)
+                    </label>
+                    <div class="flex gap-2">
+                        <input type="number" id="birth_hour" name="birth_hour" min="1" max="12" required
+                            placeholder="மணி (1-12)"
+                            class="w-1/3 px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:outline-none transition">
+                        <input type="number" id="birth_minute" name="birth_minute" min="0" max="59" required
+                            placeholder="நிமிடம் (0-59)"
+                            class="w-1/3 px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:outline-none transition">
+                        <select id="birth_ampm" name="birth_ampm" required
+                            class="w-1/3 px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:outline-none transition">
+                            <option value="AM">🌅 காலை (AM)</option>
+                            <option value="PM">🌙 மாலை/இரவு (PM)</option>
+                        </select>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-1">
+                        💡 உதாரணம்: காலை 9:26 = 9, 26, AM | இரவு 9:26 = 9, 26, PM
+                    </p>
+                </div>
+
+                <!-- Birth Place -->
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">
+                        📍 பிறந்த இடம் (Birth Place)
+                    </label>
+                    <input type="text" id="birth_place" name="birth_place" required
+                        placeholder="உதா: Chennai, Madurai, Coimbatore"
+                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:outline-none transition">
+                </div>
+
+                <!-- Question Type -->
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">
+                        ❓ பலன் வகை (Prediction Type)
+                    </label>
+                    <select id="question_type" name="question_type"
+                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:outline-none transition">
+                        <option value="பொது">🌟 பொது பலன் (General)</option>
+                        <option value="தொழில்">💼 தொழில் (Career)</option>
+                        <option value="திருமணம்">💑 திருமணம் (Marriage)</option>
+                        <option value="ஆரோக்கியம்">🏥 ஆரோக்கியம் (Health)</option>
+                        <option value="பணம்">💰 பணம் (Finance)</option>
+                        <option value="கல்வி">📚 கல்வி (Education)</option>
+                    </select>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submitBtn"
+                    class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold py-4 rounded-lg hover:from-purple-700 hover:to-indigo-700 transition transform hover:scale-105">
+                    🔮 பலன் பார்க்க (Get Prediction)
+                </button>
+            </form>
+
+            <!-- Loading -->
+            <div id="loading" class="hidden text-center py-8">
+                <div class="animate-spin rounded-full h-16 w-16 border-4 border-purple-500 border-t-transparent mx-auto mb-4"></div>
+                <p class="text-gray-600">AI பலன் கணிக்கிறது... சிறிது நேரம் காத்திருங்கள்...</p>
+            </div>
+
+            <!-- Result -->
+            <div id="result" class="hidden mt-8 space-y-6">
+                <!-- Jathaga Kattam -->
+                <div id="kattamSection" class="bg-gradient-to-r from-orange-50 to-yellow-50 p-6 rounded-xl border border-orange-200">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">🔮 ஜாதக கட்டம் (Birth Chart)</h3>
+                    <div id="jathagaKattam" class="grid grid-cols-4 gap-1 max-w-md mx-auto"></div>
+                </div>
+
+                <!-- Basic Info -->
+                <div id="basicInfo" class="bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-xl border border-blue-200">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">📋 அடிப்படை விவரங்கள்</h3>
+                    <div id="basicDetails" class="grid grid-cols-2 gap-4"></div>
+                </div>
+
+                <!-- Planetary Positions -->
+                <div id="planetSection" class="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-xl border border-green-200">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">🪐 கிரக நிலைகள் (Planetary Positions)</h3>
+                    <div id="planetTable" class="overflow-x-auto"></div>
+                </div>
+
+                <!-- Dasha Bhukti -->
+                <div id="dashaSection" class="bg-gradient-to-r from-pink-50 to-rose-50 p-6 rounded-xl border border-pink-200">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">📅 தசா-புக்தி விவரங்கள்</h3>
+                    <div id="currentDasha" class="mb-4 p-4 bg-white rounded-lg shadow"></div>
+                    <div id="allDasha" class="space-y-2"></div>
+                </div>
+
+                <!-- AI Prediction -->
+                <div id="predictionSection" class="bg-gradient-to-r from-purple-50 to-indigo-50 p-6 rounded-xl border border-purple-200">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">📜 AI ஜோதிட பலன்</h3>
+                    <div id="prediction" class="whitespace-pre-wrap text-gray-700"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-8 text-white/60 text-sm">
+            <p>Powered by ChatGPT AI • Built with ❤️ for Tamil Astrology</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('astroForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const loading = document.getElementById('loading');
+            const result = document.getElementById('result');
+            
+            // Show loading
+            submitBtn.classList.add('hidden');
+            loading.classList.remove('hidden');
+            result.classList.add('hidden');
+            
+            // Convert 12-hour to 24-hour format
+            let hour = parseInt(document.getElementById('birth_hour').value);
+            const minute = String(document.getElementById('birth_minute').value).padStart(2, '0');
+            const ampm = document.getElementById('birth_ampm').value;
+            
+            console.log('Hour:', hour, 'Minute:', minute, 'AMPM:', ampm);
+            
+            // Convert to 24-hour format
+            if (ampm === 'PM' && hour !== 12) {
+                hour += 12;
+            } else if (ampm === 'AM' && hour === 12) {
+                hour = 0;
+            }
+            const birth_time_24 = hour.toString().padStart(2, '0') + ':' + minute;
+            
+            const data = {
+                name: document.getElementById('name').value,
+                gender: document.getElementById('gender').value,
+                birth_date: document.getElementById('birth_date').value,
+                birth_time: birth_time_24,
+                birth_place: document.getElementById('birth_place').value,
+                question_type: document.getElementById('question_type').value
+            };
+            
+            try {
+                console.log('Sending data:', data);
+                
+                const response = await fetch('/api/prediction', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                console.log('Response status:', response.status);
+                const json = await response.json();
+                console.log('Response JSON:', json);
+                
+                // Display Jathaga Kattam
+                if (json.ஜாதக_கட்டம்) {
+                    displayKattam(json.ஜாதக_கட்டம்);
+                }
+                
+                // Display Basic Info
+                if (json.ஜாதகம்) {
+                    displayBasicInfo(json.ஜாதகம், data.name, data.gender);
+                    displayPlanets(json.ஜாதகம்.கிரகங்கள்);
+                    displayDasha(json.ஜாதகம்.தசா);
+                }
+                
+                // Display AI Prediction
+                if (json.பலன்) {
+                    document.getElementById('prediction').innerHTML = json.பலன்.replace(/\n/g, '<br>');
+                }
+                
+                result.classList.remove('hidden');
+                
+            } catch (error) {
+                document.getElementById('prediction').innerHTML = `<p class="text-red-500">Error: ${error.message}</p>`;
+                result.classList.remove('hidden');
+            }
+            
+            loading.classList.add('hidden');
+            submitBtn.classList.remove('hidden');
+        });
+
+        function displayKattam(kattam) {
+            const container = document.getElementById('jathagaKattam');
+            container.innerHTML = '';
+            
+            const rasiColors = {
+                'மேஷம்': 'bg-red-100', 'ரிஷபம்': 'bg-green-100', 'மிதுனம்': 'bg-yellow-100',
+                'கடகம்': 'bg-blue-100', 'சிம்மம்': 'bg-orange-100', 'கன்னி': 'bg-emerald-100',
+                'துலாம்': 'bg-pink-100', 'விருச்சிகம்': 'bg-purple-100', 'தனுசு': 'bg-indigo-100',
+                'மகரம்': 'bg-gray-100', 'கும்பம்': 'bg-cyan-100', 'மீனம்': 'bg-teal-100'
+            };
+            
+            kattam.கட்டம்.forEach(row => {
+                row.forEach(cell => {
+                    const div = document.createElement('div');
+                    const bgColor = rasiColors[cell.ராசி] || 'bg-gray-50';
+                    div.className = `${bgColor} border border-gray-300 p-2 text-center min-h-[70px] text-xs`;
+                    
+                    if (cell.ராசி) {
+                        div.innerHTML = `
+                            <div class="font-bold text-gray-700">${cell.ராசி}</div>
+                            <div class="text-purple-600 font-semibold">${cell.கிரகங்கள்.join(' ')}</div>
+                        `;
+                    }
+                    container.appendChild(div);
+                });
+            });
+        }
+
+        function displayBasicInfo(chart, name, gender) {
+            const container = document.getElementById('basicDetails');
+            const genderIcon = gender === 'ஆண்' ? '👨' : '👩';
+            container.innerHTML = `
+                <div class="p-3 bg-white rounded-lg shadow">
+                    <span class="text-gray-500">👤 பெயர்:</span>
+                    <span class="font-bold">${name || '-'}</span>
+                </div>
+                <div class="p-3 bg-white rounded-lg shadow">
+                    <span class="text-gray-500">🚻 பாலினம்:</span>
+                    <span class="font-bold text-blue-600">${genderIcon} ${gender || '-'}</span>
+                </div>
+                <div class="p-3 bg-white rounded-lg shadow">
+                    <span class="text-gray-500">📅 பிறந்த கிழமை:</span>
+                    <span class="font-bold text-orange-600">${chart['பிறந்த கிழமை'] || '-'}</span>
+                </div>
+                <div class="p-3 bg-white rounded-lg shadow">
+                    <span class="text-gray-500">🌙 ராசி:</span>
+                    <span class="font-bold text-purple-600">${chart.ராசி}</span>
+                </div>
+                <div class="p-3 bg-white rounded-lg shadow">
+                    <span class="text-gray-500">⭐ நட்சத்திரம்:</span>
+                    <span class="font-bold text-indigo-600">${chart['ஜென்ம நட்சத்திரம்']}</span>
+                </div>
+                <div class="p-3 bg-white rounded-lg shadow">
+                    <span class="text-gray-500">🏠 லக்னம்:</span>
+                    <span class="font-bold text-green-600">${chart.லக்னம்?.ராசி || '-'}</span>
+                </div>
+            `;
+        }
+
+        function displayPlanets(planets) {
+            const container = document.getElementById('planetTable');
+            let html = `<table class="w-full text-sm">
+                <thead class="bg-green-200">
+                    <tr>
+                        <th class="p-2 text-left">கிரகம்</th>
+                        <th class="p-2 text-left">ராசி</th>
+                        <th class="p-2 text-left">நட்சத்திரம்</th>
+                        <th class="p-2 text-left">பாதம்</th>
+                        <th class="p-2 text-left">பாகை</th>
+                    </tr>
+                </thead>
+                <tbody>`;
+            
+            for (const [planet, data] of Object.entries(planets)) {
+                html += `<tr class="border-b hover:bg-green-50">
+                    <td class="p-2 font-semibold">${planet}</td>
+                    <td class="p-2">${data.ராசி}</td>
+                    <td class="p-2">${data.நட்சத்திரம்}</td>
+                    <td class="p-2">${data.பாதம்}</td>
+                    <td class="p-2">${data.பாகை}°</td>
+                </tr>`;
+            }
+            
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        function displayDasha(dasha) {
+            // Current Dasha & Bhukti
+            const currentDiv = document.getElementById('currentDasha');
+            if (dasha.தற்போதைய_தசா) {
+                let currentHtml = `
+                    <h4 class="font-bold text-pink-700 mb-2">🔴 தற்போதைய தசா-புக்தி</h4>
+                    <p><strong>தசா:</strong> <span class="text-lg font-bold text-purple-600">${dasha.தற்போதைய_தசா.தசா}</span></p>
+                    <p><strong>காலம்:</strong> ${dasha.தற்போதைய_தசா.தொடக்கம்} முதல் ${dasha.தற்போதைய_தசா.முடிவு} வரை</p>
+                `;
+                if (dasha.தற்போதைய_புக்தி) {
+                    currentHtml += `
+                        <p class="mt-2"><strong>புக்தி:</strong> <span class="text-lg font-bold text-indigo-600">${dasha.தற்போதைய_புக்தி.புக்தி}</span></p>
+                        <p><strong>புக்தி காலம்:</strong> ${dasha.தற்போதைய_புக்தி.தொடக்கம்} முதல் ${dasha.தற்போதைய_புக்தி.முடிவு} வரை</p>
+                    `;
+                }
+                currentDiv.innerHTML = currentHtml;
+            }
+            
+            // All Dashas with Bhukti
+            const allDiv = document.getElementById('allDasha');
+            let allHtml = '<h4 class="font-bold text-pink-700 mb-3">📋 அனைத்து தசா-புக்தி விவரங்கள்</h4>';
+            
+            dasha.அனைத்து_தசாக்கள்?.forEach((d, idx) => {
+                const isExpanded = idx === 0 ? 'block' : 'hidden';
+                allHtml += `
+                    <div class="border rounded-lg overflow-hidden mb-2">
+                        <button onclick="toggleDasha(${idx})" class="w-full p-3 bg-gradient-to-r from-pink-100 to-rose-100 text-left font-semibold flex justify-between items-center">
+                            <span>🌟 ${d.தசா} தசா (${d.ஆண்டுகள்} ஆண்டுகள்)</span>
+                            <span class="text-sm text-gray-600">${d.தொடக்கம்} - ${d.முடிவு}</span>
+                        </button>
+                        <div id="dasha-${idx}" class="${isExpanded} p-3 bg-white">
+                            <table class="w-full text-sm">
+                                <thead class="bg-pink-50">
+                                    <tr>
+                                        <th class="p-2 text-left">புக்தி</th>
+                                        <th class="p-2 text-left">தொடக்கம்</th>
+                                        <th class="p-2 text-left">முடிவு</th>
+                                        <th class="p-2 text-left">மாதங்கள்</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${d.புக்தி?.map(b => `
+                                        <tr class="border-b hover:bg-pink-50">
+                                            <td class="p-2 font-semibold">${b.புக்தி}</td>
+                                            <td class="p-2">${b.தொடக்கம்}</td>
+                                            <td class="p-2">${b.முடிவு}</td>
+                                            <td class="p-2">${b.மாதங்கள்}</td>
+                                        </tr>
+                                    `).join('') || ''}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            allDiv.innerHTML = allHtml;
+        }
+
+        function toggleDasha(idx) {
+            const el = document.getElementById(`dasha-${idx}`);
+            el.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
