@@ -8,7 +8,7 @@ from datetime import datetime
 class TamilAstrologyGeminiAI:
     def __init__(self, api_key):
         genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel('gemini-pro')
+        self.model = genai.GenerativeModel('models/gemini-1.5-flash-latest')
         self.system_prompt = self._build_system_prompt()
     
     def _build_system_prompt(self):
