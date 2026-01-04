@@ -77,8 +77,6 @@ def get_birth_chart():
 def get_prediction():
     """Get AI-generated prediction based on birth chart"""
     try:
-        if not ai_agent:
-            return jsonify({"பிழை": "AI API key not configured. Set GEMINI_API_KEY environment variable."}), 503
         
         data = request.json
         birth_date = data.get('birth_date')
