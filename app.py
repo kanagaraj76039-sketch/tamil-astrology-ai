@@ -18,7 +18,11 @@ calculator = SkyfieldVedicCalculator()
 ai_agent = None
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 
-if AI_PROVIDER == "groq" and GROQ_API_KEY:
+if AI_PROVIDER == "rule_based":
+    from rule_based_prediction import TamilRuleBasedPrediction
+    ai_agent = TamilRuleBasedPrediction()
+    print("✅ Rule-Based Tamil Prediction initialized (FREE, No API)")
+elif AI_PROVIDER == "groq" and GROQ_API_KEY:
     from groq_ai_agent import TamilAstrologyGroqAI
     ai_agent = TamilAstrologyGroqAI(GROQ_API_KEY)
     print("✅ Groq AI Agent initialized (FREE, Fast)")
