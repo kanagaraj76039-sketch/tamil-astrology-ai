@@ -1,15 +1,14 @@
-# Tamil Vedic Astrology AI Agent with Google Gemini (New SDK)
+# Tamil Vedic Astrology AI Agent with Google Gemini
 # Generates human-like predictions in pure Tamil
 
-from google import genai
-from google.genai import types
+import google.generativeai as genai
 import json
 from datetime import datetime
 
 class TamilAstrologyGeminiAI:
     def __init__(self, api_key):
-        self.client = genai.Client(api_key=api_key)
-        self.model_id = "gemini-2.0-flash"
+        genai.configure(api_key=api_key)
+        self.model = genai.GenerativeModel('gemini-1.5-flash')
         self.system_prompt = self._build_system_prompt()
     
     def _build_system_prompt(self):
@@ -54,32 +53,11 @@ class TamilAstrologyGeminiAI:
     def _generate(self, prompt):
         """Generate content using Gemini"""
         try:
-            response = self.client.models.generate_content(
-                model=self.model_id,
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    system_instruction=self.system_prompt,
-                    temperature=0.7,
-                    max_output_tokens=2048
-                )
-            )
+            full_prompt = f"{self.system_prompt}\n\n{prompt}"
+            response = self.model.generate_content(full_prompt)
             return response.text
         except Exception as e:
-            # Try fallback model
-            try:
-                self.model_id = "gemini-1.5-flash"
-                response = self.client.models.generate_content(
-                    model=self.model_id,
-                    contents=prompt,
-                    config=types.GenerateContentConfig(
-                        system_instruction=self.system_prompt,
-                        temperature=0.7,
-                        max_output_tokens=2048
-                    )
-                )
-                return response.text
-            except Exception as e2:
-                raise Exception(f"Gemini API error: {str(e2)}")
+            raise Exception(f"Gemini API error: {str(e)}")
 
     def generate_prediction(self, chart_data, question_type, specific_question=None):
         """Generate prediction based on chart and question"""
