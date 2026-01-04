@@ -12,3 +12,4 @@ skyfield>=1.46
 jplephem>=2.18
 openai>=1.0.0
 gunicorn>=21.0.0
+google-generativeai>=0.3.0
