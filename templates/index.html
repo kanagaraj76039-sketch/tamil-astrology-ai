@@ -241,24 +241,18 @@
             const container = document.getElementById('jathagaKattam');
             container.innerHTML = '';
             
-            const rasiColors = {
-                'மேஷம்': 'bg-red-100', 'ரிஷபம்': 'bg-green-100', 'மிதுனம்': 'bg-yellow-100',
-                'கடகம்': 'bg-blue-100', 'சிம்மம்': 'bg-orange-100', 'கன்னி': 'bg-emerald-100',
-                'துலாம்': 'bg-pink-100', 'விருச்சிகம்': 'bg-purple-100', 'தனுசு': 'bg-indigo-100',
-                'மகரம்': 'bg-gray-100', 'கும்பம்': 'bg-cyan-100', 'மீனம்': 'bg-teal-100'
-            };
-            
             kattam.கட்டம்.forEach(row => {
                 row.forEach(cell => {
                     const div = document.createElement('div');
-                    const bgColor = rasiColors[cell.ராசி] || 'bg-gray-50';
-                    div.className = `${bgColor} border border-gray-300 p-2 text-center min-h-[70px] text-xs`;
+                    const hasPlanets = cell.கிரகங்கள் && cell.கிரகங்கள்.length > 0;
+                    div.className = `bg-white border-2 border-gray-400 p-2 text-center min-h-[70px] flex items-center justify-center`;
                     
                     if (cell.ராசி) {
-                        div.innerHTML = `
-                            <div class="font-bold text-gray-700">${cell.ராசி}</div>
-                            <div class="text-purple-600 font-semibold">${cell.கிரகங்கள்.join(' ')}</div>
-                        `;
+                        if (hasPlanets) {
+                            div.innerHTML = `<div class="text-red-600 font-bold text-sm">${cell.கிரகங்கள்.join(' ')}</div>`;
+                        } else {
+                            div.innerHTML = '';
+                        }
                     }
                     container.appendChild(div);
                 });
