@@ -6,6 +6,7 @@ from flask_cors import CORS
 from skyfield_calculator import SkyfieldVedicCalculator
 from config import AI_PROVIDER, GEMINI_API_KEY, ANTHROPIC_API_KEY, OLLAMA_MODEL, OLLAMA_URL, OPENAI_API_KEY
 import json
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -15,7 +16,13 @@ calculator = SkyfieldVedicCalculator()
 
 # Initialize AI agent based on provider
 ai_agent = None
-if AI_PROVIDER == "openai" and OPENAI_API_KEY:
+GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
+
+if AI_PROVIDER == "groq" and GROQ_API_KEY:
+    from groq_ai_agent import TamilAstrologyGroqAI
+    ai_agent = TamilAstrologyGroqAI(GROQ_API_KEY)
+    print("✅ Groq AI Agent initialized (FREE, Fast)")
+elif AI_PROVIDER == "openai" and OPENAI_API_KEY:
     from openai_ai_agent import TamilAstrologyOpenAI
     ai_agent = TamilAstrologyOpenAI(OPENAI_API_KEY)
     print("✅ OpenAI ChatGPT Agent initialized")
