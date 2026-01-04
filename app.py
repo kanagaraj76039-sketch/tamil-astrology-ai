@@ -101,7 +101,8 @@ def get_prediction():
             if ai_agent:
                 prediction = ai_agent.generate_prediction(chart, question_type, specific_question)
         except Exception as ai_error:
-            prediction = f"AI பலன் தற்போது கிடைக்கவில்லை (Rate limit). ஜாதக விவரங்கள் கீழே உள்ளன."
+            print(f"AI Error: {type(ai_error).__name__}: {str(ai_error)}")
+            prediction = f"AI பலன் தற்போது கிடைக்கவில்லை. பிழை: {str(ai_error)[:100]}"
         
         return jsonify({
             "வெற்றி": True,
