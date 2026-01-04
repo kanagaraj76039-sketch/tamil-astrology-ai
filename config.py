@@ -12,7 +12,7 @@ CLAUDE_MODEL = "claude-3-5-sonnet-20241022"
 GEMINI_MODEL = "gemini-2.0-flash"
 
 # AI Provider: "openai", "ollama" (free, local), "gemini", or "anthropic" (paid)
-AI_PROVIDER = "openai"
+AI_PROVIDER = "gemini"
 OLLAMA_MODEL = "qwen2:0.5b"
 OLLAMA_URL = "http://localhost:11434"
 
